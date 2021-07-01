@@ -4,10 +4,6 @@ from .models import Product, Category
 # Register your models here.
 
 
-class Meta:
-    verbose_name_plural = 'Categories'
-
-
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'sku',
