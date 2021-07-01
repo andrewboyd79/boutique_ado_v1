@@ -37,13 +37,15 @@
   </head>
 
   <body>
-      <header class="container-fluid fixed-top">
-          <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+    <header class="container-fluid fixed-top">
+        <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+            <!--Logo-->
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
                     <h2 class="logo-font text-black my-0"><strong>Boutique</strong> Ado</h2>
                 </a>
             </div>
+            <!--Search bar-->
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <form method="GET" action="">
                     <div class="input-group w-100">
@@ -61,12 +63,14 @@
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                     <li class="list-inline-item dropdown">
+                        <!--My Account Dropdown List-->
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fas fa-user fa-lg"></i></div>
                                 <p class="my-0">My Account</p>
                             </div>
                         </a>
+                        <!--Dropdown Options based on if/else logic-->
                         <div class="dropdown-menu border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
@@ -81,14 +85,16 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
+                        <!--Shopping Basket List-->
                         <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
                             <div class="text-center">
                                 <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                                <!--Value set based on if/else logic-->
                                 <p class="my-0">
                                     {% if grand_total %}
                                         ${{ grand_total|floatformat:2 }}
                                     {% else %}
-                                        £0.00
+                                        $0.00
                                     {% endif %}
                                 </p>
                             </div>
@@ -96,22 +102,40 @@
                     </li>
                 </ul>
             </div>
+            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0"></div>
         </div>
-      </header>
+        <div class="row bg-white">
+            <nav class="navbar navbar-expand-lg navbar-light w-100">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!--Includes the main-nav and mobile top header html-->
+                {% include 'includes/mobile-top-header.html' %}
+                <!--main nav includes centered dropdowns for product selection-->
+                {% include 'includes/main-nav.html' %}
+            </nav>
+        </div>
+        <!--Delivery banner-->
+        <div id="delivery-banner" class="row text-center">
+            <div class="col bg-black text-white">
+                <h4 class="logo-font my-1">Free delivery on orders over ${{ free_delivery_threshold }}!</h4>                
+            </div>            
+        </div>
+    </header>
 
-      {% if messages %}
-          <div class="message-container">
+    {% if messages %}
+        <div class="message-container"></div>
+    {% endif %}
 
-          </div>
-          {% endif %}
+    {% block page_header %}
+    {% endblock %}
 
-          {% block page_header %}
-          {% endblock %}
-      {% block content %}
-      
-      {% endblock %}
-    
-      {% block postloadjs %}
-      {% endblock %}
-    </body>
+    {% block content %}
+    {% endblock %}
+
+    {% block postloadjs %}
+    {% endblock %}
+
+
+  </body>
 </html>
