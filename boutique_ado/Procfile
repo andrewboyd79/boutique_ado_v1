@@ -1,1 +1,2 @@
-web:gunicorn boutique_ado.wsgi:applicationexit
+web: gunicorn boutique_ado.wsgi:application
+
